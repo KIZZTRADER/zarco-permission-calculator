@@ -1,1 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Modern Discord permissions calculator for bot developers">
+    <title>Zarco Permission Calculator</title>
+    <link rel="stylesheet" href="fonts/font-awesome.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-calculator"></i>
+                </div>
+                <h1 class="logo-text">Zarco Permission Calculator</h1>
+            </div>
+            <button class="theme-switcher" id="themeToggle">
+                <i class="fas fa-moon"></i>
+                <span>Dark Mode</span>
+            </button>
+        </header>
 
+        <div class="result-card">
+            <div class="result-header">
+                <h2 class="result-title">Permissions Result</h2>
+                <div>
+                    <div class="permission-value" id="number">0</div>
+                    <div class="permission-hex" id="equation">0x0</div>
+                </div>
+            </div>
+            
+            <div class="warning-note">
+                <i class="fas fa-exclamation-circle"></i> Permissions marked with <span class="requires-2fa">REQUIRES 2FA</span> need the bot owner to have Two-Factor Authentication enabled if the server requires it.
+            </div>
+        </div>
+
+        <div class="permissions-grid">
+            <!-- General Permissions -->
+            <div class="permission-category">
+                <div class="category-header">
+                    <div class="category-icon">
+                        <i class="fas fa-cog"></i>
+                    </div>
+                    <h3 class="category-title">General Permissions</h3>
+                </div>
+                <ul class="permission-list">
+                    <li class="permission-item">
+                        <input type="checkbox" id="generalViewChannels" onclick="recalculate()">
+                        <label for="generalViewChannels">
+                            <span class="custom-checkbox"></span>
+                            <span class="permission-name">View Channels</span>
+                        </label>
+                    </li>
+                    <li class="permission-item">
+                        <input type="checkbox" id="generalManageChannels" onclick="recalculate()">
+                        <label for="generalManageChannels">
+                            <span class="custom-checkbox"></span>
+                            <span class="permission-name">Manage Channels</span>
+                            <span class="requires-2fa">REQUIRES 2FA</span>
+                        </label>
+                    </li>
+                    <li class="permission-item">
+                        <input type="checkbox" id="generalManageRoles" onclick="recalculate()">
+                        <label for="generalManageRoles">
+                            <span class="custom-checkbox"></span>
+                            <span class="permission-name">Manage Roles</span>
+                            <span class="requires-2fa">REQUIRES 2FA</span>
+                        </label>
+                    </li>
+                    <li class="permission-item">
+                        <input type="checkbox" id="generalManageEmojis" onclick="recalculate()">
+                        <label for="generalManageEmojis">
+                            <span class="custom-checkbox"></span>
+                            <span class="permission-name">Manage Emojis and Stickers</span>
+                            <span class="requires-2fa">REQUIRES 2FA</span>
+                        </label>
+                    </li>
+                    <li class="permission-item">
+                        <input type="checkbox" id="generalViewAuditLog" onclick="recalculate()">
+                        <label for="generalViewAuditLog">
+                            <span class="custom-checkbox"></span>
+                            <span class="permission-name">View Audit Log</span>
+                        </label>
+                    </li>
+                    <li class="permission-item">
+                        <input type="checkbox" id="generalViewGuildInsights" onclick="recalculate()">
+                        <label for="generalViewGuildInsights">
+                            <span class="custom-checkbox"></span>
+                            <span class="permission-name">View Server Insights</span>
+                        </label>
+                    </li>
+                    <li class="permission-item">
+                        <input type="checkbox" id="generalManageWebhooks" onclick="recalculate()">
+                        <label for="generalManageWebhooks">
+                            <span class="custom-checkbox"></span>
+                            <span class="permission-name">Manage Webhooks</span>
+                            <span class="requires-2fa">REQUIRES 2FA</span>
+                        </label>
+                    </li>
+                    <li class="permission-item">
+                        <input type="checkbox" id="generalManageGuild" onclick="recalculate()">
+                        <label for="generalManageGuild">
+                            <span class="custom-checkbox"></span>
+                            <span class="permission-name">Manage Server</span>
+                            <span class="requires-2fa">REQUIRES 2FA</span>
+                        </label>
+                    </li>
+                    <li class="permission-item">
+                        <input type="checkbox" id="generalCreateInvite" onclick="recalculate()">
+                        <label for="generalCreateInvite">
+                            <span class="custom-checkbox"></span>
+                            <span class="permission-name">Create Invite</span>
+                        </label>
+                    </li>
+                    <li class="permission-item">
+                        <input type="checkbox" id="generalChangeNickname" onclick="recalculate()">
+                        <label for="generalChangeNickname">
+                            <span class="custom-checkbox"></span>
+                            <span class="permission-name">Change Nickname</span>
+                        </label>
+                    </li>
+                    <li class="permission-item">
+                        <input type="checkbox" id="generalManageNicknames" onclick="recalculate()">
+                        <label for="generalManageNicknames">
+                            <span class="custom-checkbox"></span>
+                            <span class="permission-name">Manage Nicknames</span>
+                        </label>
+                    </li>
+                    <li class="permission-item">
+                        <input type="checkbox" id="generalKickMembers" onclick="recalculate()">
+                        <label for="generalKickMembers">
+                            <span class="custom-checkbox"></span>
+                            <span class="permission-name">Kick Members</span>
+                            <span class="requires-2fa">REQUIRES 2FA</span>
+                        </label>
+                    </li>
+                    <li class="permission-item">
+                        <input type="checkbox" id="generalBanMembers" onclick="recalculate()">
+                        <label for="generalBanMembers">
+                            <span class="custom-checkbox"></span>
+                            <span class="permission-name">Ban Members</span>
+                            <span class="requires-2fa">REQUIRES 2FA</span>
+                        </label>
+                    </li>
+                    <li class="permission-item">
+                        <input type="checkbox" id="generalManageEvents" onclick="recalculate()">
+                        <label for="generalManageEvents">
+                            <span class="custom-checkbox"></span>
+                            <span class="permission-name">Manage Events</span>
+                            <span class="requires-2fa">REQUIRES 2FA</span>
+                        </label>
+                    </li>
+                    <li class="permission-item">
+                        <input type="checkbox" id="generalAdministrator" onclick="recalculate()">
+                        <label for="generalAdministrator">
+                            <span class="custom-checkbox"></span>
+                            <span class="permission-name">Administrator</span>
+                            <span class="requires-2fa">REQUIRES 2FA</span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Text Permissions -->
+            <div class="permission-category">
+                <div class="category-header">
+                    <div class="category-icon">
+                        <i class="fas fa-comment-alt"></i>
+                    </div>
+                    <h3 class="category-title">Text Permissions</h3>
+                </div>
+                <ul class="permission-list">
+                    <li class="permission-item">
+                        <input type="checkbox" id="textSendMessages" onclick="recalculate()">
+                        <label for="textSendMessages">
+                            <span class="custom-checkbox"></span>
+                            <span class="permission-name">Send Messages</span>
+                        </label>
+                    </li>
+                    <li class="permission-item">
+                        <input type="checkbox" id="textSendMessagesThreads" onclick="recalculate()">
+                        <label for="textSendMessagesThreads">
+                            <span class="custom-checkbox"></span>
+                            <span class="permission-name">Send Messages in Threads</span>
+                        </label>
+                    </li>
+                    <li class="permission-item">
+                        <input type="checkbox" id="textCreatePublicThreads" onclick="recalculate()">
+                        <label for="textCreatePublicThreads">
+                            <span class="custom-checkbox"></span>
+                            <span class="permission-name">Create Public Threads</span>
+                        </label>
+                    </li>
+                    <li class="permission-item">
+                        <input type="checkbox" id="textCreatePrivateThreads" onclick="recalculate()">
+                        <label for="textCreatePrivateThreads">
+                            <span class="custom-checkbox"></span>
+                            <span class="permission-name">Create Private Threads</span>
+                        </label>
+                    </li>
+                    <li class="permission-item">
+                        <input type="checkbox" id="textEmbedLinks" onclick="recalculate()">
+                        <label for="textEmbedLinks">
+                            <span class="custom-checkbox"></span>
+                            <span class="permission-name">Embed Links</span>
+                        </label>
+                    </li>
+                    <li class="permission-item">
+                        <input type="checkbox" id="textAttachFiles" onclick="recalculate()">
+                        <label for="textAttachFiles">
+                            <span class="custom-checkbox"></span>
+                            <span class="permission-name">Attach Files</span>
+                        </label>
+                    </li>
+                    <li class="permission-item">
+                        <input type="checkbox" id="textAddReactions" onclick="recalculate()">
+                        <label for="textAddReactions">
+                            <span class="custom-checkbox"></span>
+                            <span class="permission-name">Add Reactions</span>
+                        </label>
+                    </li>
+                    <li class="permission-item">
+                        <input type="checkbox" id="textUseExternalEmojis" onclick="recalculate()">
+                        <label for="textUseExternalEmojis">
+                            <span class="custom-checkbox"></span>
+                            <span class="permission-name">Use External Emoji</span>
+                        </label>
+                    </li>
+                    <li class="permission-item">
+                        <input type="checkbox" id="textUseExternalStickers" onclick="recalculate()">
+                        <label for="textUseExternalStickers">
+                            <span class="custom-checkbox"></span>
+                            <span class="permission-name">Use External Stickers</span>
+                        </label>
+                    </li>
+                    <li class="permission-item">
+                        <input type="checkbox" id="textMentionEveryone" onclick="recalculate()">
+                        <label for="textMentionEveryone">
+                            <span class="custom-checkbox"></span>
+                            <span class="permission-name">Mention @everyone, @here, and All Roles</span>
+                        </label>
+                    </li>
+                    <li class="permission-item">
+                        <input type="checkbox" id="textManageMessages" onclick="recalculate()">
+                        <label for="textManageMessages">
+                            <span class="custom-checkbox"></span>
+                            <span class="permission-name">Manage Messages</span>
+                            <span class="requires-2fa">REQUIRES 2FA</span>
+                        </label>
+                    </li>
+                    <li class="permission-item">
+                        <input type="checkbox" id="textManageThreads" onclick="recalculate()">
+                        <label for="textManageThreads">
+                            <span class="custom-checkbox"></span>
+                            <span class="permission-name">Manage Threads</span>
+                            <span class="requires-2fa">REQUIRES 2FA</span>
+                        </label>
+                    </li>
+                    <li class="permission-item">
+                        <input type="checkbox" id="textReadMessageHistory" onclick="recalculate()">
+                        <label for="textReadMessageHistory">
+                            <span class="custom-checkbox"></span>
+                            <span class="permission-name">Read Message History</span>
+                        </label>
+                    </li>
+                    <li class="permission-item">
+                        <input type="checkbox" id="textSendTTSMessages" onclick="recalculate()">
+                        <label for="textSendTTSMessages">
+                            <span class="custom-checkbox"></span>
+                            <span class="permission-name">Send Text-to-Speech Messages</span>
+                        </label>
+                    </li>
+                    <li class="permission-item">
+                        <input type="checkbox" id="textUseSlashCommands" onclick="recalculate()">
+                        <label for="textUseSlashCommands">
+                            <span class="custom-checkbox"></span>
+                            <span class="permission-name">Use Application Commands</span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Voice Permissions -->
+            <div class="permission-category">
+                <div class="category-header">
+                    <div class="category-icon">
+                        <i class="fas fa-microphone-alt"></i>
+                    </div>
+                    <h3 class="category-title">Voice Permissions</h3>
+                </div>
+                <ul class="permission-list">
+                    <li class="permission-item">
+                        <input type="checkbox" id="voiceConnect" onclick="recalculate()">
+                        <label for="voiceConnect">
+                            <span class="custom-checkbox"></span>
+                            <span class="permission-name">Connect</span>
+                        </label>
+                    </li>
+                    <li class="permission-item">
+                        <input type="checkbox" id="voiceSpeak" onclick="recalculate()">
+                        <label for="voiceSpeak">
+                            <span class="custom-checkbox"></span>
+                            <span class="permission-name">Speak</span>
+                        </label>
+                    </li>
+                    <li class="permission-item">
+                        <input type="checkbox" id="voiceStream" onclick="recalculate()">
+                        <label for="voiceStream">
+                            <span class="custom-checkbox"></span>
+                            <span class="permission-name">Video</span>
+                        </label>
+                    </li>
+                    <li class="permission-item">
+                        <input type="checkbox" id="voiceStartActivities" onclick="recalculate()">
+                        <label for="voiceStartActivities">
+                            <span class="custom-checkbox"></span>
+                            <span class="permission-name">Start Activities</span>
+                        </label>
+                    </li>
+                    <li class="permission-item">
+                        <input type="checkbox" id="voiceUseVAD" onclick="recalculate()">
+                        <label for="voiceUseVAD">
+                            <span class="custom-checkbox"></span>
+                            <span class="permission-name">Use Voice Activity</span>
+                        </label>
+                    </li>
+                    <li class="permission-item">
+                        <input type="checkbox" id="voicePrioritySpeaker" onclick="recalculate()">
+                        <label for="voicePrioritySpeaker">
+                            <span class="custom-checkbox"></span>
+                            <span class="permission-name">Priority Speaker</span>
+                        </label>
+                    </li>
+                    <li class="permission-item">
+                        <input type="checkbox" id="voiceMuteMembers" onclick="recalculate()">
+                        <label for="voiceMuteMembers">
+                            <span class="custom-checkbox"></span>
+                            <span class="permission-name">Mute Members</span>
+                        </label>
+                    </li>
+                    <li class="permission-item">
+                        <input type="checkbox" id="voiceDeafenMembers" onclick="recalculate()">
+                        <label for="voiceDeafenMembers">
+                            <span class="custom-checkbox"></span>
+                            <span class="permission-name">Deafen Members</span>
+                        </label>
+                    </li>
+                    <li class="permission-item">
+                        <input type="checkbox" id="voiceMoveMembers" onclick="recalculate()">
+                        <label for="voiceMoveMembers">
+                            <span class="custom-checkbox"></span>
+                            <span class="permission-name">Move Members</span>
+                        </label>
+                    </li>
+                    <li class="permission-item">
+                        <input type="checkbox" id="voiceStageRequestSpeak" onclick="recalculate()">
+                        <label for="voiceStageRequestSpeak">
+                            <span class="custom-checkbox"></span>
+                            <span class="permission-name">Request to Speak</span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- OAuth Section -->
+        <div class="oauth-section">
+            <div class="oauth-header">
+                <div class="oauth-icon">
+                    <i class="fas fa-link"></i>
+                </div>
+                <h3 class="oauth-title">OAuth URL Generator</h3>
+            </div>
+            
+            <div class="oauth-form">
+                <div class="form-group">
+                    <label class="form-label" for="clientID">Client ID</label>
+                    <input type="text" id="clientID" class="form-input" placeholder="Insert Client ID here" onkeyup="recalculate()">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="oauthRedirect">Redirect URI (optional)</label>
+                    <input type="text" id="oauthRedirect" class="form-input" placeholder="https://example.com/callback" onkeyup="recalculate()">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="oauthScopes">Scope</label>
+                    <input type="text" id="oauthScopes" class="form-input" placeholder="bot" onkeyup="recalculate()">
+                </div>
+            </div>
+            
+            <div class="checkbox-group">
+                <input type="checkbox" id="oauthCodeGrant" onclick="recalculate()">
+                <label for="oauthCodeGrant">Require Code Grant</label>
+            </div>
+            
+            <div class="oauth-result">
+                <strong>Generated URL:</strong><br>
+                <a href="#" id="invite" class="oauth-link">https://discord.com/oauth2/authorize?client_id=INSERT_CLIENT_ID_HERE&scope=bot&permissions=0</a>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2023 Zarco Permission Calculator | Not affiliated with Discord</p>
+        </footer>
+    </div>
+    <script src="js/script.js"></script>
+</body>
+</html>
