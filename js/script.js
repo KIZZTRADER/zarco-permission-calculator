@@ -1,4 +1,4 @@
-// Permissions values
+// Permissions values 
 const perms = {
     generalViewChannels: 1024,
     generalCreateInvite: 1,
